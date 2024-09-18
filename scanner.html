@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System - Payteam Scanner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        input, select {
+            margin-bottom: 15px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #scannedForms {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        .scanned-form {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Registration</h1>
+        <form id="registrationForm">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" required>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <button type="submit">Register</button>
+        </form>
+        <button id="scanButton">Scan Form</button>
+        <div id="scannedForms">
+            <h2>Scanned Forms</h2>
+        </div>
+    </div>
+
+    <script>
+        let formCount = 0;
+
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Registration submitted!');
+        });
+
+        document.getElementById('scanButton').addEventListener('click', function() {
+            scanForm();
+        });
+
+        function scanForm() {
+            const fullName = document.getElementById('fullName').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const email = document.getElementById('email').value;
+
+            formCount++;
+
+            const scannedData = `
+                <div class="scanned-form">
+                    <h3>Scanned Form #${formCount}</h3>
+                    <p><strong>Full Name:</strong> ${fullName}</p>
+                    <p><strong>Age:</strong> ${age}</p>
+                    <p><strong>Gender:</strong> ${gender}</p>
+                    <p><strong>Phone Number:</strong> ${phoneNumber}</p>
+                    <p><strong>Email:</strong> ${email}</p>
+                </div>
+            `;
+
+            document.getElementById('scannedForms').insertAdjacentHTML('afterbegin', scannedData);
+
+            // Clear the form after scanning
+            document.getElementById('registrationForm').reset();
+        }
+    </script>
+</body>
+</html>
